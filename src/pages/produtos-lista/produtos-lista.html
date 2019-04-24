@@ -1,0 +1,32 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>Lista de Produtos</ion-title>
+  </ion-navbar>
+</ion-header>
+
+
+<ion-content padding>
+    <ion-list>
+        <ion-item>
+            <ion-label>Categoria</ion-label>
+            <ion-select [(ngModel)]="category" (ionChange)="filtrarProdutos()" interface="popover">
+              <ion-option value="" [selected]="true">Todas</ion-option>
+              <ion-option *ngFor="let category of categories | async" [value]="category.key">{{ category.name }}</ion-option>
+            </ion-select>
+          </ion-item>
+
+        <ion-item *ngFor="let item of produtos | async">
+            <h2>{{ item.name }}</h2>
+            <ion-avatar item-start>
+              <img src="{{ item.imgUrl }}" class="img-thumbnail" style="max-width: 100px;" [hidden]="item.imgUrl == ''" />
+            </ion-avatar>
+            <p class="text-right">{{ item.price | currency:'BRL':true }}</p>
+            <p>{{ item.categoryName }}</p>
+          </ion-item>
+    </ion-list>
+
+      <ion-fab right bottom [hidden]="!mostrarCarrinho">
+        <button ion-fab color="secondary" (click)="abrirCarrinho()"><ion-icon name="cart"></ion-icon></button>
+      </ion-fab>
+
+</ion-content>
