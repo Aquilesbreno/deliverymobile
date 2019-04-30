@@ -6,6 +6,14 @@ export class PedidosProvider {
 
   constructor() {
 
+
   }
+
+  public adicionaProduto(item: any){
+
+
+  }
+
+
 
 }

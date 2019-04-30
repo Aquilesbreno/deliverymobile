@@ -1,0 +1,97 @@
+<ion-header>
+  <ion-navbar color="primary">
+    <ion-title>Pagamento</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content>
+  <form [formGroup]="form" novalidate>
+    <ion-list>
+      <ion-item-group>
+        <ion-item-divider color="light">Pague na entrega</ion-item-divider>
+        <ion-item>
+          <ion-label>Forma de pagamento</ion-label>
+          <ion-select formControlName="paymentType" (ionChange)="setRequiredField()">
+            <ion-option value="" [selected]="true">- Escolha -</ion-option>
+            <ion-option *ngFor="let item of paymentTypes" [value]="item.value">{{ item.description }}</ion-option>
+          </ion-select>
+        </ion-item>
+        <ion-item *ngIf="!form.controls.paymentType.valid && (form.controls.paymentType.dirty || form.controls.paymentType.touched)"
+          color="danger">
+          <div [hidden]="!form.controls.paymentType.errors.required">
+            O campo é obrigatório
+          </div>
+        </ion-item>
+
+        <ion-item [hidden]="form.value.paymentType != 1">
+          <ion-label>Troco para</ion-label>
+          <ion-input type="number" step="1" formControlName="changeTo"></ion-input>
+        </ion-item>
+
+        <ion-item [hidden]="form.value.paymentType != 2">
+          <ion-label>Qual cartão</ion-label>
+          <ion-select formControlName="cardType">
+            <ion-option value="" [selected]="true">- Escolha -</ion-option>
+            <ion-option value="Crédito - Visa">Crédito - Visa</ion-option>
+            <ion-option value="Crédito - Mastercard">Crédito - Mastercard</ion-option>
+            <ion-option value="Débito - Visa">Débito - Visa</ion-option>
+            <ion-option value="Débito - Mastercard">Débito - Mastercard</ion-option>
+          </ion-select>
+        </ion-item>
+        <ion-item *ngIf="!form.controls.cardType.valid && (form.controls.cardType.dirty || form.controls.cardType.touched)" color="danger">
+          <div [hidden]="!form.controls.cardType.errors.required">
+            O campo é obrigatório
+          </div>
+        </ion-item>
+      </ion-item-group>
+
+      <ion-item-group>
+        <ion-item-divider color="light">Endereço de entrega</ion-item-divider>
+        <ion-item>
+          <ion-grid>
+            <ion-row align-items-center>
+              <ion-col col-9 text-wrap>
+                {{ seletedAddress }}
+              </ion-col>
+              <ion-col col-3 text-right>
+                <button ion-button clear color="secondary" (click)="selectAddress()">Escolher</button>
+              </ion-col>
+            </ion-row>
+          </ion-grid>
+        </ion-item>
+      </ion-item-group>
+
+      <ion-item-group>
+        <ion-item-divider color="light">Pedido</ion-item-divider>
+        <ion-item *ngFor="let item of items | async">
+          <ion-grid>
+            <ion-row>
+              <ion-col col-9>
+                <p>{{ item.productName }}</p>
+              </ion-col>
+              <ion-col col-3 text-right>{{ item.total | currency:'BRL':true }}</ion-col>
+            </ion-row>
+          </ion-grid>
+        </ion-item>
+
+        <ion-item>
+          <ion-grid>
+            <ion-row>
+              <ion-col col-9>
+                <p>Total</p>
+              </ion-col>
+              <ion-col col-3 text-right><span class="price">{{ total | currency:'BRL':true }}</span></ion-col>
+            </ion-row>
+          </ion-grid>
+        </ion-item>
+      </ion-item-group>
+
+      <ion-item>
+        <button ion-button block large icon-right [disabled]="!form.valid" (click)="createOrder()">
+          Realizar pedido
+          <ion-icon name="arrow-forward"></ion-icon>
+        </button>
+      </ion-item>
+    </ion-list>
+  </form>
+</ion-content>

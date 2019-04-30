@@ -15,7 +15,7 @@
             </ion-select>
           </ion-item>
 
-        <ion-item *ngFor="let item of produtos | async">
+        <ion-item *ngFor="let item of produtos | async" (click)="adicionaProduto(item)">
             <h2>{{ item.name }}</h2>
             <ion-avatar item-start>
               <img src="{{ item.imgUrl }}" class="img-thumbnail" style="max-width: 100px;" [hidden]="item.imgUrl == ''" />
@@ -26,7 +26,7 @@
     </ion-list>
 
       <ion-fab right bottom [hidden]="!mostrarCarrinho">
-        <button ion-fab color="secondary" (click)="abrirCarrinho()"><ion-icon name="cart"></ion-icon></button>
+        <button ion-fab color="secondary" (click)="abrirCarrinho()"><ion-icon name="cart">{{totalItems}}</ion-icon></button>
       </ion-fab>
 
 </ion-content>

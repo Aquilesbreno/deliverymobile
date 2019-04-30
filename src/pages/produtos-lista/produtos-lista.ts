@@ -25,11 +25,11 @@ export class ProdutosListaPage {
 
       this.categories = this.categoryProvider.getAll();
       this.items = this.produtosProvider.getAll(null);
-      // this.carrinhoProvider.getCartTotalItems()
-      //   .subscribe(total => {
-      //     this.mostrarCarrinho = (total > 0);
-      //     this.totalItems = total;
-      //   })
+      this.carrinhoProvider.getCarrinhoTotalItens()
+         .subscribe(total => {
+           this.mostrarCarrinho = (total > 0);
+           this.totalItems = total;
+         })
 
       this.produtos = this.produtosProvider.getAll(null);
 
@@ -40,9 +40,9 @@ export class ProdutosListaPage {
       this.produtos = this.produtosProvider.getAll(this.category);
     }
 
-    addProduct(item: any) {
+    adicionaProduto(item: any) {
       console.log(item);
-      this.navCtrl.push('CarrinhoEditaPage', { product: item });
+      this.navCtrl.push('CarrinhoEditaPage', { produto: item });
     }
 
     public abrirCarrinho() {
