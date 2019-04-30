@@ -1,18 +1,53 @@
-<!--
-  Generated template for the CarrinhoListaPage page.
-
-  See http://ionicframework.com/docs/components/#navigation for more info on
-  Ionic pages and navigation.
--->
 <ion-header>
-
-  <ion-navbar>
-    <ion-title>carrinho-lista</ion-title>
+  <ion-navbar color="primary">
+    <ion-title>Carrinho</ion-title>
   </ion-navbar>
-
 </ion-header>
 
 
 <ion-content padding>
 
+  <ion-list>
+    <ion-item *ngFor="let item of items | async">
+      <ion-grid>
+        <ion-row align-items-end>
+          <ion-col col-7>
+            <h1>{{ item.productName }}</h1>
+            <pre text-wrap [hidden]="!item.description">{{ item.description }}</pre>
+            <p>Preço: <span class="price">{{ item.price | currency:'BRL':true }}</span></p>
+            <pre text-wrap [hidden]="!item.obs">{{ item.obs }}</pre>
+          </ion-col>
+          <ion-col col-5>
+            <ion-grid>
+              <ion-row align-items-right>
+                <ion-col col-4>
+                  <button ion-button block color="primary" (click)="addQtd(item)"><ion-icon name="add"></ion-icon></button>
+                </ion-col>
+                <ion-col col-4 class="text-qtd">
+                  {{ item.qtd }}
+                </ion-col>
+                <ion-col col-4>
+                  <button ion-button block color="primary" (click)="removeQtd(item)"><ion-icon name="remove"></ion-icon></button>
+                </ion-col>
+              </ion-row>
+              <ion-row>
+                <ion-col col-12>
+                  <p>Total: <span class="price">{{ item.total | currency:'BRL':true }}</span></p>
+                </ion-col>
+              </ion-row>
+            </ion-grid>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </ion-item>
+  </ion-list>
+
 </ion-content>
+
+<ion-footer>
+  <p padding-horizontal><b>Total do pedido:</b> <span class="price">{{ total | currency:'BRL':true }}</span></p>
+  <button ion-button full large icon-right (click)="openPayment()">
+    Escolher forma de pagamento
+    <ion-icon name="arrow-forward"></ion-icon>
+  </button>
+</ion-footer>

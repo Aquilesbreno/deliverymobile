@@ -22,6 +22,7 @@ import { ProdutosProvider } from '../providers/produtos/produtos';
 import { config } from '../config-firebase';
 import { CarrinhoProvider } from '../providers/carrinho/carrinho';
 import { PedidosProvider } from '../providers/pedidos/pedidos';
+import { DatePipe } from '@angular/common';
 
 @NgModule({
   declarations: [
@@ -51,7 +52,8 @@ import { PedidosProvider } from '../providers/pedidos/pedidos';
     ProdutosProvider,
     CarrinhoProvider,
     PedidosProvider,
-    CarrinhoProvider
+    CarrinhoProvider,
+    DatePipe
   ]
 })
 export class AppModule {}

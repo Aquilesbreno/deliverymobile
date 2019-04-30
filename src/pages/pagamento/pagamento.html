@@ -11,7 +11,7 @@
         <ion-item-divider color="light">Pague na entrega</ion-item-divider>
         <ion-item>
           <ion-label>Forma de pagamento</ion-label>
-          <ion-select formControlName="paymentType" (ionChange)="setRequiredField()">
+          <ion-select formControlName="paymentType" (ionChange)="camposRequeridos()">
             <ion-option value="" [selected]="true">- Escolha -</ion-option>
             <ion-option *ngFor="let item of paymentTypes" [value]="item.value">{{ item.description }}</ion-option>
           </ion-select>
@@ -54,7 +54,7 @@
                 {{ seletedAddress }}
               </ion-col>
               <ion-col col-3 text-right>
-                <button ion-button clear color="secondary" (click)="selectAddress()">Escolher</button>
+                <button ion-button clear color="secondary" (click)="selecioneEndereco()">Escolher</button>
               </ion-col>
             </ion-row>
           </ion-grid>
@@ -87,7 +87,7 @@
       </ion-item-group>
 
       <ion-item>
-        <button ion-button block large icon-right [disabled]="!form.valid" (click)="createOrder()">
+        <button ion-button block large icon-right [disabled]="!form.valid" (click)="criarPedidos()">
           Realizar pedido
           <ion-icon name="arrow-forward"></ion-icon>
         </button>

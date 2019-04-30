@@ -74,8 +74,8 @@ export class CarrinhoListaPage {
     confirm.present();
   }
 
-  public openPayment() {
-    // this.navCtrl.push('PaymentPage');
+  public abrirPagamento() {
+     this.navCtrl.push('PagamentoPage');
   }
 
   ionViewDidLoad() {
